@@ -63,7 +63,8 @@ function PosPage() {
                             image={wines[i].image}
 
                             title={wines[i].wine}
-
+                            
+                            description={wines[i].winery}
 
                             price={dummyPrice}
 

@@ -17,8 +17,7 @@ function WineCard(props) {
             <Card.Body>
 
                 <Card.Title>{title} - {price} Baht</Card.Title>
-
-
+                <Card.Text>By {description}</Card.Text>
                 <Button variant="primary" onClick={handleClick}>Add to Cart</Button>
 
             </Card.Body>
