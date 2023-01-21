@@ -1,38 +1,29 @@
 import * as React from 'react'
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
-import { Container, Row, Col } from 'react-bootstrap';
-
-import WineCard from '../../components/WineCard';
-
+import { Container, ButtonGroup, Button, Row, Col } from 'react-bootstrap';
+import WineCard from '../components/WineCard';
 import { useLocalStorage } from 'react-use';
-
-
 
 
 const dummyPrice = 250
 
-
-
 function PosPage() {
-
-    localStorage.clear();
-
+    
     // window.localStorage['coffee'] = 'Latte'
 
     // const [coffee, setCoffee] = useLocalStorage('coffee', 'Latte')
 
 
-
     let [wineTitles, setWineTitles] = React.useState([])
 
-    let [subMenu, setSubMenu] = React.useState('wine')
+    let [subMenu, setSubMenu] = React.useState('reds')
 
     // let [cart, setCart] = React.useState([])
 
     let [cart, setCart] = useLocalStorage('cart', [])
+    const checkout = typeof window !== 'undefined' ? localStorage.clear() : null
 
+    
 
 
     function addToCard(wine) {
@@ -53,7 +44,7 @@ function PosPage() {
 
         let items = []
 
-        fetch('https://api.sampleapis.com/wines/reds')
+        fetch(`https://api.sampleapis.com/wines/${subMenu}`)
 
             .then(res => res.json())
 
@@ -71,9 +62,8 @@ function PosPage() {
 
                             image={wines[i].image}
 
-                            title={wines[i].winery}
+                            title={wines[i].wine}
 
-                            description={wines[i].description}
 
                             price={dummyPrice}
 
@@ -86,18 +76,18 @@ function PosPage() {
                 }
 
                 setWineTitles(items)
-
             })
 
     }, [subMenu])
 
 
-
-
     return <Container>
 
         <h1>POS</h1>
-
+        <ButtonGroup aria-label="Basic example">
+            <Button variant="secondary" onClick={() => { setSubMenu('reds') }}>Reds</Button>
+            <Button variant="secondary" onClick={() => { setSubMenu('whites') }}>Whites</Button>
+        </ButtonGroup>
         <Row>
 
             <Col>
@@ -140,7 +130,4 @@ function PosPage() {
 
 }
 
-
-
 export default PosPage
-
